@@ -1,9 +1,17 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { FaSearch } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaRegUserCircle } from "react-icons/fa";
+import { Link } from 'react-router-dom'
+import { ItemContext } from '../App';
 
 function SearchBar() {
+    const context = useContext(ItemContext);
+
+    const totalCartCount = context.state.cart.reduce(
+        (total, item) => (total = total + item.count),
+        0
+      );
   return (
     <div className='flex px-40 justify-between h-[60px]'>
         <div className='w-[30%] flex items-center'>
@@ -19,11 +27,15 @@ function SearchBar() {
                 </div>
             </div>
             <div className='w-[16%] flex justify-evenly items-center text-sm'>
-                <FaShoppingCart fontSize="30px"/>
-                <div className='flex flex-col '>
-                    <p>Cart</p>
-                    <p className='font-bold'>100$</p>
-                </div>
+                <Link to="/cart">
+                    <div className='flex items-center w-full'>
+                        <FaShoppingCart fontSize="30px"/>
+                        <div className='flex flex-col px-2'>
+                            <p>Cart</p>
+                            <p className='font-bold'>{totalCartCount}</p>
+                        </div>
+                    </div>
+                </Link>
             </div>
             <div className='w-[20%] flex justify-end h-full items-center text-sm'>
                 <FaRegUserCircle fontSize="30px"/>

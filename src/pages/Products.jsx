@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ItemCard from '../components/ItemCard';
 import phone from '../assets/Phone.jpg'
 import headphones from '../assets/Headphones.jpg'
@@ -7,26 +7,27 @@ import camera from '../assets/Camera.jpg'
 import television from '../assets/Television.jpg'
 import { FaFilter } from "react-icons/fa";
 import ProductFilter from '../Popups/ProductFilter';
+import axios from 'axios'
 
 function Products() {
-    const products = [
-        { img: phone, brand: "samsung", name: "IPhone 13 High Quality Vlaue Buy", stars: "", price: "100$", description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia" },
-        { img: headphones, brand: "samsung", name: "IPhone 13 High Quality Vlaue Buy", stars: "", price: "100$", description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia"  },
-        { img: laptop, brand: "dell", name: "IPhone 13 High Quality Vlaue Buy", stars: "", price: "100$", description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia"  },
-        { img: camera, brand: "canon", name: "IPhone 13 High Quality Vlaue Buy", stars: "", price: "100$", description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia"  },
-        { img: television, brand: "panasonic",name: "IPhone 13 High Quality Vlaue Buy",stars: "",price: "100$", description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia" },
-        { img: phone, brand: "apple", name: "IPhone 13 High Quality Vlaue Buy", stars: "", price: "100$", description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia"  },
-        { img: phone, brand: "nokia", name: "IPhone 13 High Quality Vlaue Buy", stars: "", price: "100$", description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia"  },
-        { img: headphones, brand: "jbl", name: "IPhone 13 High Quality Vlaue Buy", stars: "", price: "100$", description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia"  },
-        { img: laptop, brand: "acer", name: "IPhone 13 High Quality Vlaue Buy", stars: "", price: "100$", description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia"  },
-        { img: camera, brand: "sony", name: "IPhone 13 High Quality Vlaue Buy", stars: "", price: "100$", description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia"  },
-        { img: television,brand: "philips",name: "IPhone 13 High Quality Vlaue Buy",stars: "",price: "100$", description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia" },
-        { img: phone, brand: "oppo", name: "IPhone 13 High Quality Vlaue Buy", stars: "", price: "100$", description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia"  },
-    ];
 
+    const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState(products);
     const [selectedItems, setSelectedItems] = useState([]);
     const [filter, setFilter] = useState(false);
+
+    const getProducts = async () => {
+      await axios.get('http://localhost:5000/api/product/getProducts')
+      .then(response => {
+        setProducts(response.data);
+        setFilteredProducts(response.data);
+        console.log(products);
+      })
+    }
+
+    useEffect(() => {
+      getProducts();
+    }, []);
 
     const displayFilter = () => {
       setFilter(!filter);
@@ -47,6 +48,8 @@ function Products() {
         setFilteredProducts(
           products.filter((product) => selectedItems.includes(product.brand))
         );
+
+        console.log("Filtered: ", filteredProducts);
 
         displayFilter();
     };
@@ -71,7 +74,7 @@ function Products() {
         <div className='flex flex-wrap'>
           {filteredProducts.map((item, index) => (
             <div className='w-1/5' key={index}>
-              <ItemCard img={item.img} type={item.type} name={item.name} price={item.price} description={item.description}/>
+              <ItemCard id={item._id} img={item.img} type={item.type} name={item.name} price={item.price} description={item.description}/>
             </div>
           ))}
         </div>
