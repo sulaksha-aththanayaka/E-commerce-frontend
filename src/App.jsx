@@ -11,6 +11,12 @@ import Contact from './pages/Contact'
 import ProductDetail from './pages/ProductDetail'
 import Cart from './components/Cart'
 import { createContext, useState } from 'react'
+import Register from './pages/Register'
+import Login from './pages/Login'
+import Profile from './pages/Profile'
+import PrivateRoute from './components/PrivateRoute'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export const ItemContext = createContext();
@@ -69,6 +75,11 @@ function App() {
         <Routes>
           <Route>
             <Route path="/" element={<Home />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='' element={<PrivateRoute />}>
+              <Route path='/profile' element={<Profile />} />
+            </Route>
             <Route path='/cart' element={<Cart />} />
             <Route path="/products" element={<Products />} />
             <Route path="/product/:id" element={<ProductDetail />} />
@@ -79,6 +90,7 @@ function App() {
         </Routes>
         <Footer/>
       </ItemContext.Provider>
+      <ToastContainer /> 
     </BrowserRouter>
   )
 }
