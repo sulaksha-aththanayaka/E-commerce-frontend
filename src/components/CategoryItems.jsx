@@ -27,8 +27,8 @@ function CategoryItems() {
       ];
 
   return (
-    <div>
-      <div className='px-40 text-2xl font-bold mt-10'>
+    <div className='sm:block hidden'>
+      <div className='sm:px-40 text-2xl font-bold mt-10'>
         <h1>Categories</h1>
       </div>
       <div className='flex px-40 flex-wrap m-10'>
