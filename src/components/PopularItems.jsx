@@ -116,13 +116,22 @@ function PopularItems() {
         }
     ];
   return (
-    <div className='px-40'>
-        <div className='text-2xl font-bold'>
+    <div className='sm:px-40 px-5'>
+        <div className='sm:text-2xl font-bold'>
             <h1>Popular Items</h1>
         </div>
-        <div className='flex flex-wrap my-10'>
+        <div className='sm:flex flex-wrap my-2 hidden'>
             {popular.map((item, index) =>(
                 <div className='w-1/5' key={index}>
+                    <div key={index}>
+                        <ItemCard img={item.img} type={item.type} name={item.name} price={item.price} key={index}/>
+                    </div>
+                </div>
+            ))}
+        </div>
+        <div className='flex flex-wrap my-2 sm:hidden'>
+            {popular.map((item, index) =>(
+                <div className='w-1/2' key={index}>
                     <div key={index}>
                         <ItemCard img={item.img} type={item.type} name={item.name} price={item.price} key={index}/>
                     </div>

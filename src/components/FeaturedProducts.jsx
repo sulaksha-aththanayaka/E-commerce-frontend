@@ -86,7 +86,7 @@ function FeaturedProducts() {
         },
     ];
 
-    const settings = {
+    const settingsLg = {
         dots: true,
         infinite: true,
         speed: 400,
@@ -94,22 +94,44 @@ function FeaturedProducts() {
         slidesToScroll: 1,
     };
 
+    const settingsSm = {
+        // dots: true,
+        infinite: true,
+        speed: 400,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+    };
+
 
   return (
-    <div className='px-40 z-10 relative mb-10'>
-        <div className='text-2xl font-bold'>
+    <div className='sm:px-40 px-5 z-10 relative mb-10'>
+        <div className='sm:text-2xl font-bold sm:mb-0 mb-5'>
             <h1>Featured Products</h1>
         </div>
-        <Slider {...settings}>
-            {featured.map((item, index) => (
-                <div className='h-[50%] z-10' key={index}>
-                    <div key={index} className='m-5'>
-                        <FeaturedItemCard img={item.img} type={item.type} name={item.name} price={item.price} key={index}/>
+        <div className='sm:block hidden'>
+            <Slider {...settingsLg}>
+                {featured.map((item, index) => (
+                    <div className='h-[50%] z-10' key={index}>
+                        <div key={index} className='m-5'>
+                            <FeaturedItemCard img={item.img} type={item.type} name={item.name} price={item.price} key={index}/>
+                        </div>
                     </div>
-                </div>
-            )
-            )}
-        </Slider>
+                )
+                )}
+            </Slider>
+        </div>
+        <div className='sm:hidden w-[70%] block mx-auto'>
+            <Slider {...settingsSm}>
+                {featured.map((item, index) => (
+                    <div className='h-[50%] z-10' key={index}>
+                        <div key={index}>
+                            <FeaturedItemCard img={item.img} type={item.type} name={item.name} price={item.price} key={index}/>
+                        </div>
+                    </div>
+                )
+                )}
+            </Slider>
+        </div>
     </div>
     
   );

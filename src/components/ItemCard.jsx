@@ -12,7 +12,7 @@ function ItemCard({id, img, type, name, price, description}) {
 
   return (
     <Link to={`/product/${id}`}>
-      <div onClick={showItem} className='text-sm min-h-20 rounded-xl border-2 border-transparent hover:border-gray-300 transition ease-in-out duration-400'>
+      <div onClick={showItem} className='text-sm min-h-20 rounded-xl border-2 sm:m-0 m-1 sm:border-transparent hover:border-gray-300 transition ease-in-out duration-400'>
           
           {/* {display && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -22,12 +22,12 @@ function ItemCard({id, img, type, name, price, description}) {
             </div>
           )} */}
           
-          <div className='h-[200px] flex justify-center'>
+          <div className='sm:h-[200px] flex justify-center'>
               <img src={img} className='h-full object-cover rounded-t-xl'/>
           </div>
           <div className='p-2'>
-              <p className='tracking-widest text-gray-600 text-sm py-2'>{type}</p>
-              <p className='text-lg leading-5'>{name}</p>
+              <p className='tracking-widest text-gray-600 text-xs sm:text-sm py-2'>{type}</p>
+              <p className='sm:text-lg sm:leading-5 leading-4'>{name}</p>
               <div className='flex py-1'>
                   <IoStarOutline color='orange'/>
                   <IoStarOutline color='orange'/>
