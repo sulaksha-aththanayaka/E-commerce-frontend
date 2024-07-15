@@ -31,15 +31,15 @@ function Cart() {
           );
         })}
       </div>
-      <div className="bg-blue-500 w-[30%] mx-5 p-5">
-        <h1>Order Summary</h1>
-        <div>
+      <div className="bg-white w-[30%] m-5 p-5">
+        <h1 className="text-xl text-center font-bold">Order Summary</h1>
+        <div className="text-lg leading-10">
           <h3>Subtotal: {totalCartAmount}</h3>
           <h3>Shipping fee: 0</h3>
           <h3>Discount: 0</h3>
         </div>
-        <h1>Total : {totalCartAmount}</h1>
-        <button>Checkout</button>
+        <h1 className="text-lg mb-5">Total : {totalCartAmount}</h1>
+        <button className="bg-[#fe624c] text-white p-2 rounded-md">Checkout</button>
       </div>
     </div>
   );

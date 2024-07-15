@@ -79,8 +79,8 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='' element={<PrivateRoute />}>
               <Route path='/profile' element={<Profile />} />
+              <Route path='/cart' element={<Cart />} />
             </Route>
-            <Route path='/cart' element={<Cart />} />
             <Route path="/products" element={<Products />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/categories" element={<Categories />} />
