@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import SearchBar from './components/SearchBar'
 import Home from './pages/Home'
@@ -17,14 +17,26 @@ import Profile from './pages/Profile'
 import PrivateRoute from './components/PrivateRoute'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useDispatch } from 'react-redux'
+import { useFetchProductsQuery } from './slices/productsApiSlice'
+import { setProducts } from './slices/productsSlice';
 
 export const ItemContext = createContext();
  
 function App() {
+
+  const dispatch = useDispatch();
+  const { data: products, error, isLoading } = useFetchProductsQuery();
+
   const [state, setState] = useState({
     cart: []
   });
+
+  useEffect(() => {
+    if (products) {
+      dispatch(setProducts(products));
+    }
+  }, [products, dispatch]);
 
   const addToCart = (product) => {
     setState({
@@ -66,6 +78,10 @@ function App() {
       )
     });
   };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading products</div>;
+
   return (
     <BrowserRouter>
       <ItemContext.Provider

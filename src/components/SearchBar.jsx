@@ -6,14 +6,18 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { ItemContext } from "../App";
 import { useDispatch, useSelector } from "react-redux";
 import { useLogoutMutation } from "../slices/usersApiSlice";
+// import { useGetProductByNameQuery } from "../slices/productsApiSlice"
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 import { logout } from "../slices/authSlice";
+import { filterProducts, setProducts } from '../slices/productsSlice';
+import axios from 'axios';
 
 function SearchBar() {
   const context = useContext(ItemContext);
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,11 +25,15 @@ function SearchBar() {
 
   const [logoutApiCall] = useLogoutMutation();
 
+  // const { data: searchResults } = useGetProductByNameQuery(searchTerm, { skip: !searchTerm });
+
+
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
   const { userInfo } = useSelector((state) => state.auth);
+  const { filteredProducts } = useSelector((state) => state.products);
 
   useEffect(() => {
     // Redirect to home page only if the user is logged in and not on the profile page
@@ -45,19 +53,44 @@ function SearchBar() {
     }
   };
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    dispatch(filterProducts(e.target.value));
+    // console.log(filteredProducts);
+  };
+
+  const handleSearchItem = async () => {
+    await axios.get(`http://localhost:5000/api/product/getProductByName/${searchTerm}`)
+    .then(response => {
+      console.log(response);
+    })
+  }
+
   const totalCartCount = context.state.cart.reduce(
     (total, item) => (total = total + item.count),
     0
   );
+
   return (
     <div className="flex sm:px-40 px-5 pr-24 h-[60px] items-center justify-between">
       <div className="sm:text-3xl font-bold">EShop</div>
 
       <div className="flex items-center sm:w-[35%] sm:h-[70%] border-2 ml-8 mt-48 justify-center sm:mt-0 absolute sm:relative">
         <div className="w-full sm:w-[90%] bg-green-400 h-full">
-          <input placeholder="Search product..." className="outline-none w-full h-full px-2 py-1 text-md"/>
+          <input placeholder="Search product..."  value={searchTerm} onChange={handleSearch} className="outline-none w-full h-full px-2 py-1 text-md"/>
+          {searchTerm ? (
+            <div className="bg-white z-30 absolute w-full">
+              {filteredProducts.map((product) => (
+                <div key={product._id} className="p-2 hover:bg-slate-300 cursor-pointer" onClick={() => setSearchTerm(product.name)}>
+                  <p>{product.name}</p>
+                </div>
+              ))}
+            </div>
+          ): (
+            <></>
+          )}
         </div>
-        <div className="flex justify-center items-center w-[10%] h-full">
+        <div onClick={handleSearchItem} className="flex justify-center items-center w-[10%] h-full cursor-pointer">
           <FaSearch/> 
         </div>
       </div>
