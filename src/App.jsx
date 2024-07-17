@@ -20,6 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux'
 import { useFetchProductsQuery } from './slices/productsApiSlice'
 import { setProducts } from './slices/productsSlice';
+import AddProducts from './components/AddProducts'
 
 export const ItemContext = createContext();
  
@@ -102,6 +103,7 @@ function App() {
             <Route path="/categories" element={<Categories />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/add_products" element={<AddProducts />} />
           </Route>
         </Routes>
         <Footer/>

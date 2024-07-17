@@ -23,7 +23,7 @@ function ItemCard({id, img, type, name, price, description}) {
           )} */}
           
           <div className='sm:h-[200px] flex justify-center'>
-              <img src={img} className='h-full object-cover rounded-t-xl'/>
+              <img src={`http://localhost:5000/uploads/${img}`} className='h-full object-cover rounded-t-xl'/>
           </div>
           <div className='p-2'>
               <p className='tracking-widest text-gray-600 text-xs sm:text-sm py-2'>{type}</p>

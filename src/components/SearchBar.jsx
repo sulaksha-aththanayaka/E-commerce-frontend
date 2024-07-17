@@ -62,6 +62,7 @@ function SearchBar() {
   const handleSearchItem = async () => {
     await axios.get(`http://localhost:5000/api/product/getProductByName/${searchTerm}`)
     .then(response => {
+      const id = response._id;
       console.log(response);
     })
   }
