@@ -11,8 +11,7 @@ import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 import { logout } from "../slices/authSlice";
 import { filterProducts, setProducts } from '../slices/productsSlice';
-import axios from 'axios';
-
+import { getProductByName } from '../api/productService.js'
 function SearchBar() {
   const context = useContext(ItemContext);
 
@@ -60,11 +59,16 @@ function SearchBar() {
   };
 
   const handleSearchItem = async () => {
-    await axios.get(`http://localhost:5000/api/product/getProductByName/${searchTerm}`)
-    .then(response => {
-      const id = response._id;
+    try {
+      const response = await getProductByName(searchTerm);
+      const id = response.data._id;
       console.log(response);
-    })
+      console.log(id);
+      navigate(`/product/${id}`); 
+    } catch (error) {
+      console.log("Error getting product", error);
+    }
+
   }
 
   const totalCartCount = context.state.cart.reduce(

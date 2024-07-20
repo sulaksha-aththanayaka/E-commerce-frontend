@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
-import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import { ItemContext } from "../App";
+import { getProductById } from '../api/productService.js';
 
 function ProductDetail() {
 
@@ -12,11 +12,14 @@ function ProductDetail() {
     const context = useContext(ItemContext);
 
     const getProduct = async () => {
-        await axios.get(`http://localhost:5000/api/product/getProduct/${id}`)
-        .then(response => {
+    
+        try {
+            const response = await getProductById(id);
             setProduct(response.data);
             console.log(response.data);
-        });
+        } catch (error) {
+            console.log("No product found ", error);
+        }
     }
 
     useEffect(() => {
@@ -45,7 +48,7 @@ function ProductDetail() {
         <div className='w-full mt-[100px] -mb-[100px] flex h-screen pb-20'>
             <div className='flex border-2 border-gray-400 items-center my-10 w-full mb-14 rounded-lg'>
                 <div className='mb-10 h-[400px] w-[1000px] px-10'>
-                    <img src={product.img} className='object-cover h-full'/>
+                    <img src={`http://localhost:5000/uploads/${product.img}`} className='object-cover h-full'/>
                 </div>
                 <div className='h-[400px] mb-10 flex flex-col justify-evenly mx-10 px-10'>
                     <div className='p-5'>
