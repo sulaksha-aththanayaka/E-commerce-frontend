@@ -51,58 +51,66 @@ function AddProducts() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Name of the Product</label>
-        <input
-          name="name"
-          value={productData.name}
-          onChange={handleChange}
-          placeholder="Enter the name of the product"
-        />
-      </div>
+    <div className='px-60 w-full'>
+      <form onSubmit={handleSubmit} className='border-[#fe624c] border-2 p-10 m-5 rounded-lg text-[#fe624c] flex flex-col space-y-4'>
+        <div className="p-2 text-lg flex items-center">
+          <label className='w-[30%]'>Name of the Product</label>
+          <input
+            className='p-2 mx-2 w-full border-2 text-black'
+            name="name"
+            value={productData.name}
+            onChange={handleChange}
+            placeholder="Enter the name of the product"
+          />
+        </div>
 
-      <div>
-        <label>Brand</label>
-        <input
-          name="brand"
-          value={productData.brand}
-          onChange={handleChange}
-          placeholder="Enter the brand of the product"
-        />
-      </div>
+        <div className="p-2 text-lg flex items-center">
+          <label className='w-[30%]'>Brand</label>
+          <input
+            className='p-2 mx-2 w-full border-2 text-black'
+            name="brand"
+            value={productData.brand}
+            onChange={handleChange}
+            placeholder="Enter the brand of the product"
+          />
+        </div>
 
-      <div>
-        <label>Price in Rs.</label>
-        <input
-          name="price"
-          value={productData.price}
-          onChange={handleChange}
-          placeholder="Enter the price of the product"
-        />
-      </div>
+        <div className="p-2 text-lg flex items-center">
+          <label className='w-[30%]'>Price in Rs.</label>
+          <input
+            className='p-2 mx-2 w-full border-2 text-black'
+            name="price"
+            value={productData.price}
+            onChange={handleChange}
+            placeholder="Enter the price of the product"
+          />
+        </div>
 
-      <div>
-        <label>Description</label>
-        <input
-          name="description"
-          value={productData.description}
-          onChange={handleChange}
-          placeholder="Enter the description of the product"
-        />
-      </div>
+        <div className="p-2 text-lg flex items-center">
+          <label className='w-[30%]'>Description</label>
+          <input
+            className='p-2 mx-2 w-full border-2 text-black'
+            name="description"
+            value={productData.description}
+            onChange={handleChange}
+            placeholder="Enter the description of the product"
+          />
+        </div>
 
-      <div>
-        <label>Image</label>
-        <input
-          type="file"
-          name="img"
-          onChange={handleImageChange}
-        />
-      </div>
-
-      <button type="submit">Add Product</button>
-    </form>
+        <div className="p-2 text-lg flex items-center">
+          <label className='w-[30%]'>Image</label>
+          <input
+            className='p-2 mx-2 w-full border-2 text-black'
+            type="file"
+            name="img"
+            onChange={handleImageChange}
+          />
+        </div>
+        <div className='flex justify-center'>
+          <button type="submit" className='p-2 bg-[#fe624c] text-white w-[120px] rounded-lg hover:bg-[#e0503d]'>Add Product</button>
+        </div>
+      </form>
+    </div>
   );
 }
 

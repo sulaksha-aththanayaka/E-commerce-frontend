@@ -13,7 +13,7 @@ function CartItem({ id, img, name, price, count }) {
         <Link to={`/product/${id}`}>
           <div className="flex items-center">
             <div className="h-[50%] w-[30%] mx-5">
-              <img src={img} />
+              <img src={`http://localhost:5000/uploads/${img}`} />
             </div>
             <div>
               <h1>{name}</h1>

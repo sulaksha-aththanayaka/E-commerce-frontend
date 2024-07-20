@@ -8,6 +8,7 @@ import television from '../assets/Television.jpg'
 import { FaFilter } from "react-icons/fa";
 import ProductFilter from '../Popups/ProductFilter';
 import axios from 'axios'
+import { getAllProducts } from '../api/productService.js';
 
 function Products() {
 
@@ -24,13 +25,14 @@ function Products() {
     const [filter, setFilter] = useState(false);
 
     const getProducts = async () => {
-      await axios.get('http://localhost:5000/api/product/getProducts', {withCredentials: true})
-      .then(response => {
+      try {
+        const response = await getAllProducts();
         setProducts(response.data);
         setFilteredProducts(response.data);
-        console.log(products);
-      })
-    }
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
 
     useEffect(() => {
       getProducts();
