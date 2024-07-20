@@ -91,7 +91,7 @@ function App() {
         <Navbar/>
         <Routes>
           <Route>
-            {/* <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
             <Route path='' element={<PrivateRoute />}>
@@ -103,7 +103,7 @@ function App() {
             <Route path="/categories" element={<Categories />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/add_products" element={<AddProducts />} /> */}
+            <Route path="/add_products" element={<AddProducts />} />
           </Route>
         </Routes>
         <Footer/>
