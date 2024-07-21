@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import FeaturedItemCard from './FeaturedItemCard'
 import '../index.css'
 import phone from '../assets/Phone.jpg'
@@ -9,82 +9,102 @@ import television from '../assets/Television.jpg'
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { getAllProducts } from '../api/productService.js'
 
 function FeaturedProducts() {
 
 
-    const featured = [
-        {
-            img: phone,
-            type: "PHONE",
-            name: "IPhone 13 High Quality Vlaue Buy",
-            stars: "",
-            price: "100$"
-        },
-        {
-            img: headphones,
-            type: "AUDIO",
-            name: "IPhone 13 High Quality Vlaue Buy",
-            stars: "",
-            price: "100$"
-        },
-        {
-            img: laptop,
-            type: "LAPTOP",
-            name: "IPhone 13 High Quality Vlaue Buy",
-            stars: "",
-            price: "100$"
-        },
-        {
-            img: camera,
-            type: "CAMERA",
-            name: "IPhone 13 High Quality Vlaue Buy",
-            stars: "",
-            price: "100$"
-        },
-        {
-            img: television,
-            type: "TELEVISION",
-            name: "IPhone 13 High Quality Vlaue Buy",
-            stars: "",
-            price: "100$"
-        },
-        {
-            img: phone,
-            type: "PHONE",
-            name: "IPhone 13 High Quality Vlaue Buy",
-            stars: "",
-            price: "100$"
-        },
-        {
-            img: headphones,
-            type: "AUDIO",
-            name: "IPhone 13 High Quality Vlaue Buy",
-            stars: "",
-            price: "100$"
-        },
-        {
-            img: laptop,
-            type: "LAPTOP",
-            name: "IPhone 13 High Quality Vlaue Buy",
-            stars: "",
-            price: "100$"
-        },
-        {
-            img: camera,
-            type: "CAMERA",
-            name: "IPhone 13 High Quality Vlaue Buy",
-            stars: "",
-            price: "100$"
-        },
-        {
-            img: television,
-            type: "TELEVISION",
-            name: "IPhone 13 High Quality Vlaue Buy",
-            stars: "",
-            price: "100$"
-        },
-    ];
+    // const featured = [
+    //     {
+    //         img: phone,
+    //         type: "PHONE",
+    //         name: "IPhone 13 High Quality Vlaue Buy",
+    //         stars: "",
+    //         price: "100$"
+    //     },
+    //     {
+    //         img: headphones,
+    //         type: "AUDIO",
+    //         name: "IPhone 13 High Quality Vlaue Buy",
+    //         stars: "",
+    //         price: "100$"
+    //     },
+    //     {
+    //         img: laptop,
+    //         type: "LAPTOP",
+    //         name: "IPhone 13 High Quality Vlaue Buy",
+    //         stars: "",
+    //         price: "100$"
+    //     },
+    //     {
+    //         img: camera,
+    //         type: "CAMERA",
+    //         name: "IPhone 13 High Quality Vlaue Buy",
+    //         stars: "",
+    //         price: "100$"
+    //     },
+    //     {
+    //         img: television,
+    //         type: "TELEVISION",
+    //         name: "IPhone 13 High Quality Vlaue Buy",
+    //         stars: "",
+    //         price: "100$"
+    //     },
+    //     {
+    //         img: phone,
+    //         type: "PHONE",
+    //         name: "IPhone 13 High Quality Vlaue Buy",
+    //         stars: "",
+    //         price: "100$"
+    //     },
+    //     {
+    //         img: headphones,
+    //         type: "AUDIO",
+    //         name: "IPhone 13 High Quality Vlaue Buy",
+    //         stars: "",
+    //         price: "100$"
+    //     },
+    //     {
+    //         img: laptop,
+    //         type: "LAPTOP",
+    //         name: "IPhone 13 High Quality Vlaue Buy",
+    //         stars: "",
+    //         price: "100$"
+    //     },
+    //     {
+    //         img: camera,
+    //         type: "CAMERA",
+    //         name: "IPhone 13 High Quality Vlaue Buy",
+    //         stars: "",
+    //         price: "100$"
+    //     },
+    //     {
+    //         img: television,
+    //         type: "TELEVISION",
+    //         name: "IPhone 13 High Quality Vlaue Buy",
+    //         stars: "",
+    //         price: "100$"
+    //     },
+    // ];
+
+    const [featured, setFeatured] = useState([]);
+
+    const getFeaturedProducts = async() => {
+        try {
+            const response = await getAllProducts();
+            const products = response.data;
+            const featuredProduct = products.filter(product => product.featured === true);
+            setFeatured(featuredProduct);
+        } catch (error) {
+            console.log("Error fetching products");
+        }
+    }
+
+    useEffect(() => {
+        getFeaturedProducts();
+        console.log(featured);
+    }, []);
+
 
     const settingsLg = {
         dots: true,
@@ -113,7 +133,7 @@ function FeaturedProducts() {
                 {featured.map((item, index) => (
                     <div className='h-[50%] z-10' key={index}>
                         <div key={index} className='m-5'>
-                            <FeaturedItemCard img={item.img} type={item.type} name={item.name} price={item.price} key={index}/>
+                            <FeaturedItemCard id={item._id} img={item.img} type={item.brand} name={item.name} price={item.price} key={index}/>
                         </div>
                     </div>
                 )

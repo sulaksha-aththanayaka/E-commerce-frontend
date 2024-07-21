@@ -10,15 +10,20 @@ function AddProducts() {
     price: '',
     description: '',
     image: null,
+    featured: false,
   });
 
   const dispatch = useDispatch();
   const [addProduct] = useAddProductMutation();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProductData({ ...productData, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setProductData(prevData => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value
+    }));
   };
+  
 
   const handleImageChange = (e) => {
     setProductData({ ...productData, image: e.target.files[0] });
@@ -33,6 +38,8 @@ function AddProducts() {
     formData.append('price', productData.price);
     formData.append('description', productData.description);
     formData.append('img', productData.image);
+    formData.append('featured', productData.featured.toString());
+    // formData.append('featured', productData.featured);
 
     try {
       await addProduct(formData).unwrap();
@@ -43,6 +50,7 @@ function AddProducts() {
         price: '',
         description: '',
         image: null,
+        featured: false
       });
     } catch (error) {
       toast.error('Failed to add product');
@@ -106,6 +114,19 @@ function AddProducts() {
             onChange={handleImageChange}
           />
         </div>
+
+        <div className='flex items-center p-2'>
+          <p className='px-5'>Add this as a featured item?</p>
+          <input
+            type="checkbox"
+            id="featured"
+            name="featured"
+            checked={productData.featured}
+            onChange={handleChange}
+          />
+          <label htmlFor="featured" className='px-2'> Featured</label>
+        </div>
+
         <div className='flex justify-center'>
           <button type="submit" className='p-2 bg-[#fe624c] text-white w-[120px] rounded-lg hover:bg-[#e0503d]'>Add Product</button>
         </div>
