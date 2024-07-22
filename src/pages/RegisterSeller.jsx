@@ -4,6 +4,8 @@ import bgImage from "../assets/RegisterSeller.jpg"
 // import registerUser from "../api/userService.js"
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { setCredentials } from '../slices/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 function RegisterSeller() {
 
@@ -13,12 +15,15 @@ function RegisterSeller() {
     const [password, setPassword] = useState('');
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = async(e) => {
         e.preventDefault();
         try {
             const userData = {businessName, sellerName, email, password}
-            const response = await registerSeller(userData);
+            const res = await registerSeller(userData);
+            console.log("Seller data: ", res);
+            dispatch(setCredentials({ ...res.data }));
             toast.success('Seller registered successfully');
             navigate('/add_products');
         } catch (error) {
