@@ -25,6 +25,8 @@ function AddProducts() {
   };
   
 
+  
+
   const handleImageChange = (e) => {
     setProductData({ ...productData, image: e.target.files[0] });
   };
