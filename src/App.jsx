@@ -21,6 +21,7 @@ import { useDispatch } from 'react-redux'
 import { useFetchProductsQuery } from './slices/productsApiSlice'
 import { setProducts } from './slices/productsSlice';
 import AddProducts from './components/AddProducts'
+import RegisterSeller from './pages/RegisterSeller'
 
 export const ItemContext = createContext();
  
@@ -94,16 +95,18 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/register_seller' element={<RegisterSeller/>} />
             <Route path='' element={<PrivateRoute />}>
               <Route path='/profile' element={<Profile />} />
               <Route path='/cart' element={<Cart />} />
+              <Route path='/add_products' element={<AddProducts />} />
             </Route>
             <Route path="/products" element={<Products />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/add_products" element={<AddProducts />} />
+            {/* <Route path="/add_products" element={<AddProducts />} /> */}
           </Route>
         </Routes>
         <Footer/>

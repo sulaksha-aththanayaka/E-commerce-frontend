@@ -18,10 +18,12 @@ function Navbar() {
           <Link to="/contact">Contact</Link>
         </p>
       </div>
-      <div className="sm:flex w-[30%] justify-between items-center text-white hidden">
-        <p className="uppercase cursor-pointer">Limited Sale</p>
-        <p className="uppercase cursor-pointer">New Arrival</p>
-        <p className="uppercase cursor-pointer">Best Seller</p>
+      <div className="sm:flex w-[35%] justify-between items-center text-white hidden">
+        <p className="uppercase cursor-pointer h-full flex items-center px-2 hover:bg-[#e4523e]">
+          <Link to="/register_seller">Sell on EShop</Link>
+        </p>
+        <p className="uppercase cursor-pointer h-full flex items-center px-2 hover:bg-[#e4523e]">New Arrival</p>
+        <p className="uppercase cursor-pointer h-full flex items-center px-2 hover:bg-[#e4523e]">Best Seller</p>
       </div>
     </div>
   );
